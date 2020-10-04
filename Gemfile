@@ -68,3 +68,4 @@ gem 'jquery-rails'
 
 gem 'bootstrap-sass', '~> 3.3.6'
 
+# gem 'font-awesome-sass'
