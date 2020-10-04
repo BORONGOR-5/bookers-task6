@@ -32,47 +32,31 @@
 						</td>
 						<td><%= link_to book.title, book_path(book), class: "book_#{book.id}" %></td>
 						<td><%= book.body %></td>
-						
-						<% if current_user.favorited_by?(book.id) %>
-  						<td><%= link_to 'いいね', destroy_favorite_path(book), method: :DELETE %></td>
+
+						<td>
+						<% if book.favorited_by?(current_user) %>
+							<li>
+								<%= link_to book_favorites_path(book), method: :delete do %>
+									<i class="fa fa-heart" aria-hidden="true" style="color: red;"></i>
+    								<%= book.favorites.count %> いいね
+								<% end %>
+							</li>
 						<% else %>
-  						<td><%= link_to 'いいね', create_favorite_path(book), method: :POST %></td>
+							<li>
+								<%= link_to book_favorites_path(book), method: :post do %>
+    								<i class="fa fa-heart-o" aria-hidden="true"></i>
+    								<%= book.favorites.count %> いいね
+								<% end %>
+							</li>
 						<% end %>
-						
-						
+						</td>
+
+
+						<td>コメント数:<%= book.book_comments.count %></td>
 					</tr>
 				<% end %>
-				
-
-				
-				
-<td><%= post.title %></td>
-<% if current_user.favorited_by?(post.id) %>
-  <td>いいね外す</td>
-<% else %>
-  <td>いいねする</td>
-<% end %>
 			</tbody>
 		</table>
 		<!--books一覧 -->
 	</div>
 </div>
-
-
-
-
-<li>
-  <i class="fa fa-comment"></i>
-  <a href="#comments"><%= @post_image.post_comments.count %></a>
-</li>
-
-:
-:
-
-<div class="comment-list bt style-2" id="comments">
-  <div class="float-wrapper">
-    <h2 class="comment-count">コメント数:<%= @post_image.post_comments.count %></h2>
-  </div>
-  
-  
-  

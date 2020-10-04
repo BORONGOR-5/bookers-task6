@@ -15,13 +15,12 @@ class User < ApplicationRecord
   
   has_many :favorites, dependent: :destroy
   
-  def favorited_by?(book_id)
-    	favorites.where(book_id: book.id).exists?
-  end
-  # validates :name,  presence: true, length: { minimum: 2, maximum: 20 }
+  # def favorited_by?(book_id)
+  #   	favorites.where(book_id: book.id).exists?
+  # end
   
-  # validates :introduction,  length: { maximum: 50 }
-  
-  # validates :email, presence: true
-  
+  # def already_favorited?(book)
+  #   self.favorites.exsits?(book_id: book.id)
+  # end
+
 end
