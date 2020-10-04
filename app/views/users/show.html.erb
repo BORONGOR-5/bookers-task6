@@ -16,6 +16,8 @@
 					<th></th>
 					<th>Title</th>
 					<th>Opinion</th>
+					<th></th>
+					<th></th>
 					<th colspan="3"></th>
 				</tr>
 			</thead>
@@ -30,11 +32,47 @@
 						</td>
 						<td><%= link_to book.title, book_path(book), class: "book_#{book.id}" %></td>
 						<td><%= book.body %></td>
+						
+						<% if current_user.favorited_by?(book.id) %>
+  						<td><%= link_to 'いいね', destroy_favorite_path(book), method: :DELETE %></td>
+						<% else %>
+  						<td><%= link_to 'いいね', create_favorite_path(book), method: :POST %></td>
+						<% end %>
+						
+						
 					</tr>
 				<% end %>
+				
+
+				
+				
+<td><%= post.title %></td>
+<% if current_user.favorited_by?(post.id) %>
+  <td>いいね外す</td>
+<% else %>
+  <td>いいねする</td>
+<% end %>
 			</tbody>
 		</table>
 		<!--books一覧 -->
 	</div>
 </div>
 
+
+
+
+<li>
+  <i class="fa fa-comment"></i>
+  <a href="#comments"><%= @post_image.post_comments.count %></a>
+</li>
+
+:
+:
+
+<div class="comment-list bt style-2" id="comments">
+  <div class="float-wrapper">
+    <h2 class="comment-count">コメント数:<%= @post_image.post_comments.count %></h2>
+  </div>
+  
+  
+  
