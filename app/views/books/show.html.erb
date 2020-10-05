@@ -29,14 +29,14 @@
 							<li>
 								<%= link_to book_favorites_path(@book), method: :delete do %>
 									<i class="fa fa-heart like-btn" aria-hidden="true" style="color: red;"></i>
-    								<%= @book.favorites.count %> いいね
+    								<%= @book.favorites.count %>
 								<% end %>
 							</li>
 						<% else %>
 							<li>
 								<%= link_to book_favorites_path(@book), method: :post do %>
     								<i class="fa fa-heart-o" aria-hidden="true"></i>
-    								<%= @book.favorites.count %> いいね
+    								<%= @book.favorites.count %>
 								<% end %>
 							</li>
 						<% end %>

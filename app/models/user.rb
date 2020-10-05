@@ -12,8 +12,47 @@ class User < ApplicationRecord
   
   has_many :books,  dependent: :destroy
   has_many :book_comments, dependent: :destroy
-  
   has_many :favorites, dependent: :destroy
+  
+  
+  has_many :relationships
+  # ↑と同じ意味has_many :relationships, foreign_key: 'user_id'
+  # 架空のfolloweruserクラス（モデル）作り出す。
+  has_many :followeruser, through: :relationships, source: :follower
+  # has_many :followeduser, through: :relationships, source: :followed
+  # 架空の中間テーブル(reverse_of_relationships)を作り出す。
+  has_many :reverse_of_relationships, class_name: 'Relationship', foreign_key: 'followed_id'
+  # 架空のfolloweduserクラス（モデル）作り出す。
+  has_many :followeduser, through: :reverse_of_relationships, source: :user
+  
+  
+  def follow(other_user)
+    unless self == other_user
+      self.relationships.find_or_create_by(follower_id: other_user.id)
+    end
+  end
+  
+  
+  def unfollower(other_user)
+    relationship = self.relationships.find_by(follower_id: other_user.id)
+    relationship.destroy if relationship
+  end
+
+  def followeruser?(other_user)
+    self.followers.include?(other_user)
+  end
+  
+  
+  
+  #   # foreign_key（FK）には、@user.xxxとした際に「@user.idがfollower_idなのかfollowed_idなのか」を指定します。
+  # has_many :xxx, class_name: "モデル名", foreign_key: "○○_id", dependent: :destroy
+  # # @user.booksのように、@user.yyyで、
+  # # そのユーザがフォローしている人orフォローされている人の一覧を出したい
+  # has_many :yyy, through: :xxx, source: :zzz
+  
+  
+  
+  
   
   # def favorited_by?(book_id)
   #   	favorites.where(book_id: book.id).exists?
