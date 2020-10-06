@@ -21,7 +21,7 @@ class User < ApplicationRecord
   has_many :followeruser, through: :relationships, source: :follower
   # has_many :followeduser, through: :relationships, source: :followed
   # 架空の中間テーブル(reverse_of_relationships)を作り出す。
-  has_many :reverse_of_relationships, class_name: 'Relationship', foreign_key: 'followed_id'
+  has_many :reverse_of_relationships, class_name: 'Relationship', foreign_key: 'follower_id'
   # 架空のfolloweduserクラス（モデル）作り出す。
   has_many :followeduser, through: :reverse_of_relationships, source: :user
   
@@ -33,13 +33,13 @@ class User < ApplicationRecord
   end
   
   
-  def unfollower(other_user)
+  def unfollow(other_user)
     relationship = self.relationships.find_by(follower_id: other_user.id)
     relationship.destroy if relationship
   end
 
   def followeruser?(other_user)
-    self.followers.include?(other_user)
+    self.followeruser.include?(other_user)
   end
   
   
