@@ -10,6 +10,16 @@
 		<th>introduction</th>
 		<th><%= user.introduction %></th>
 	</tr>
+	<tr>
+		<th>follows</th>
+		<td><%= user.followeruser.count %></td>
+		
+	</tr>
+	<tr>
+		<th>followers</th>
+		<td><%= user.followeduser.count %></td>
+		
+	</tr>
 </table>
 
 <div class="row">

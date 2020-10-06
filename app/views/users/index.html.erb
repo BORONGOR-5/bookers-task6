@@ -2,7 +2,6 @@
 	<div class="col-xs-3">
 		<h2>User info</h2>
 			<%= render 'users/profile', user: current_user %>
-			
 		<h2>New book</h2>
 			<%= render 'books/form', book: @book %>
 	</div>
@@ -14,6 +13,9 @@
 				<tr>
 					<th>image</th>
 					<th>name</th>
+					<th>フォロー数</th>
+					<th>フォロワー数</th>
+					<th></th>
 					<th colspan="3"></th>
 				</tr>
 			</thead>
@@ -22,6 +24,9 @@
 				<tr>
 					<td><%= attachment_image_tag(user, :profile_image, :fill, 50, 50, fallback: "no-image-mini.jpg") %></td>
 					<td><%= user.name %></td>
+					<td><%= user.followeruser.count %></td>
+					<td><%= user.followeduser.count %></td>
+					<td><%= render 'relationships/follower_button', user: user %></td>
 					<td><%= link_to "Show", user_path(user), class: "user_#{user.id}" %></td>
 				</tr>
 				<% end %>
