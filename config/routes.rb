@@ -6,7 +6,9 @@ Rails.application.routes.draw do
     end
   end
   
-  
+  resources :users do
+  get :search, on: :collection
+end
   
   resources :books do
     resources :book_comments, only: [:create, :destroy]
