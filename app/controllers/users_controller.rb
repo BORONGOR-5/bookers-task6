@@ -36,18 +36,24 @@ class UsersController < ApplicationController
 
 
   def followeruser
-    @user  = User.find(params[:id])
+    @user = User.find(params[:id])
     @users = @user.followeruser
     render 'show_follower'
   end
 
   def followeduser
-    @user  = User.find(params[:id])
+    @user = User.find(params[:id])
     @users = @user.followeduser
     render 'show_followed'
   end
 
-
+  def search
+    if params[:name].present?
+      @users = User.where('name LIKE ?', "%#{params[:name]}%")
+    else
+      @users = User.none
+    end
+  end
 
 
 

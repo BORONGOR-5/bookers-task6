@@ -3,12 +3,13 @@ Rails.application.routes.draw do
   resources :users,only: [:show,:index,:edit,:update] do
     member do
      get :followeruser, :followeduser
+    # get :search, on: :collection
+    end
+    
+    collection do
+     get :search
     end
   end
-  
-  resources :users do
-  get :search, on: :collection
-end
   
   resources :books do
     resources :book_comments, only: [:create, :destroy]
