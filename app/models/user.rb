@@ -42,7 +42,10 @@ class User < ApplicationRecord
     self.followeruser.include?(other_user)
   end
   
-  
+  # def self.search(search)
+  #   return User.all unless search
+  #   User.where(['content LIKE ?', "%#{search}%"])
+  # end
   
   #   # foreign_key（FK）には、@user.xxxとした際に「@user.idがfollower_idなのかfollowed_idなのか」を指定します。
   # has_many :xxx, class_name: "モデル名", foreign_key: "○○_id", dependent: :destroy
