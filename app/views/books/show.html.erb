@@ -6,7 +6,7 @@
 		<%= render 'users/profile', user: @user %>
 
 		<h2>New book</h2>
-		<%= render 'books/form', book: @book %>
+		<%= render 'books/form', book: @book_new %>
 
 	</div>
 
@@ -26,19 +26,19 @@
 					
 					<td>
 						<% if @book.favorited_by?(current_user) %>
-							<li>
+							<div>
 								<%= link_to book_favorites_path(@book), method: :delete do %>
 									<i class="fa fa-heart like-btn" aria-hidden="true" style="color: red;"></i>
     								<%= @book.favorites.count %>
 								<% end %>
-							</li>
+							</div>
 						<% else %>
-							<li>
+							<div>
 								<%= link_to book_favorites_path(@book), method: :post do %>
     								<i class="fa fa-heart-o" aria-hidden="true"></i>
     								<%= @book.favorites.count %>
 								<% end %>
-							</li>
+							</div>
 						<% end %>
 					</td>
 					

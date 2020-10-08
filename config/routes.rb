@@ -6,15 +6,17 @@ Rails.application.routes.draw do
     # get :search, on: :collection
     end
     
-    collection do
-     get :search
-    end
+    # collection do
+    # get :search
+    # end
   end
   
   resources :books do
     resources :book_comments, only: [:create, :destroy]
     resource :favorites, only: [:create, :destroy]
   end
+  
+  post 'search/result' => 'search#search', as: 'search'
   
   post 'favorite/:id' => 'favorites#create', as: 'create_favorite'
   delete 'favorite/:id' => 'favorites#destroy', as: 'destroy_favorite'
