@@ -31,13 +31,12 @@
             		<% end %>
 				</tr>
 		</table>
-		<%= render 'book_comments/book_comments', book_comments: @book_comments %>
-		<%= form_with(model:[@book, @book_comment], local: true) do |f| %>
-  		<!--<div class="row">-->
+		<div id="book_comment"><%= render 'book_comments/book_comments', book_comments: @book.book_comments %></div>
+		<!--↑の<div id="book_comment"の後に_<= @book_comment.id %>が付かないのは、インスタンス変数が複数だから-->
+		<%= form_with(model:[@book, @book_comment], remote: true) do |f| %>
     		<div class="col-sm-12">
      		 <%= f.text_area :comment, rows:'5', class: "form-control" %>
     		</div>
-  		<!--</div>-->
   		<%= f.submit "送信", class: "btn btn-sm btn-base-1 mt-20 pull-right" %>
 		<% end %>
 
