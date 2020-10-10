@@ -14,6 +14,8 @@ class FavoritesController < ApplicationController
         redirect_back(fallback_location: root_path)
     end
     
+    def favorites
+    end
     
     # def create
     #     Favorite.create(user_id: current_user.id, book_id: params[:id])
