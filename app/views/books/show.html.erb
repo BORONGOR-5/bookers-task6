@@ -23,25 +23,7 @@
 					</td>
 					<td><%= link_to @book.title, book_path(@book) %></td>
 					<td><%= @book.body %></td>
-					
-					<td>
-						<% if @book.favorited_by?(current_user) %>
-							<div>
-								<%= link_to book_favorites_path(@book), method: :delete do %>
-									<i class="fa fa-heart like-btn" aria-hidden="true" style="color: red;"></i>
-    								<%= @book.favorites.count %>
-								<% end %>
-							</div>
-						<% else %>
-							<div>
-								<%= link_to book_favorites_path(@book), method: :post do %>
-    								<i class="fa fa-heart-o" aria-hidden="true"></i>
-    								<%= @book.favorites.count %>
-								<% end %>
-							</div>
-						<% end %>
-					</td>
-					
+					<td id="book_<%= @book.id %>"><%= render 'favorites/favorites', book: @book %></td>
 					<td>コメント数:<%= @book.book_comments.count %></td>
 					<% if @user.id == current_user.id %>
               		<td><%= link_to "Edit", edit_book_path(@book), class: "btn-sm btn-success edit_book_#{@book.id}" %></td>
@@ -49,28 +31,12 @@
             		<% end %>
 				</tr>
 		</table>
-		
-		<% @book_comments.each do |book_comment| %>
-			<div class="row">
-				<div class = "col-xs-9">
-					<%= book_comment.comment %>
-				</div>
-				<div class = "col-xs-3">
-	       			<% if book_comment.user == current_user %>
-	        			<div>
-	            			<%= link_to "Destroy", book_book_comment_path(book_comment.book, book_comment), method: :delete, class: "btn btn-danger pull-right" %>
-	        			</div>
-	        		<% end %>
-	        	</div>
-	        </div>
-        <% end %>
-          	
-		<%= form_with(model:[@book, @book_comment], local: true) do |f| %>
-  		<!--<div class="row">-->
+		<div id="book_comment"><%= render 'book_comments/book_comments', book_comments: @book.book_comments %></div>
+		<!--↑の<div id="book_comment"の後に_<= @book_comment.id %>が付かないのは、インスタンス変数が複数だから-->
+		<%= form_with(model:[@book, @book_comment], remote: true) do |f| %>
     		<div class="col-sm-12">
      		 <%= f.text_area :comment, rows:'5', class: "form-control" %>
     		</div>
-  		<!--</div>-->
   		<%= f.submit "送信", class: "btn btn-sm btn-base-1 mt-20 pull-right" %>
 		<% end %>
 
